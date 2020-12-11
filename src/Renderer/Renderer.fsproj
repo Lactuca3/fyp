@@ -7,8 +7,8 @@
     <None Include="scss/main.scss" />
     <Compile Include="Utils.fs" />
     <Compile Include="SnackbarLib.fs" />
-    <Compile Include="Autocomplete.fs" />
-    <Compile Include="Badges.fs" />
+    <Compile Include="Design.fs" />
+    <Compile Include="Assembler.fs" />
     <Compile Include="Dialogs.fs" />
     <Compile Include="SaveLoad.fs" />
     <Compile Include="Selects.fs" />

@@ -1,4 +1,4 @@
-﻿module Autocomplete
+﻿module Design
 
 open System
 open Fable.Import
@@ -76,17 +76,42 @@ let private useStyles = Styles.makeStyles(fun styles theme ->
   |}
 )
 
+let animationsOnHover' = React.functionComponent(fun (props: {| content: ReactElement |}) ->
+    let (hovered, setHovered) = React.useState(false)
+    Html.div [
+        prop.style [
+            style.padding 10
+            style.transitionDuration (TimeSpan.FromMilliseconds 1000.0)
+            style.transitionProperty [
+                transitionProperty.backgroundColor
+                transitionProperty.color
+            ]
+
+            if hovered then
+               style.backgroundColor.lightBlue
+               style.color.black
+            else
+               style.backgroundColor.limeGreen
+               style.color.white
+        ]
+        prop.onMouseEnter (fun _ -> setHovered(true))
+        prop.onMouseLeave (fun _ -> setHovered(false))
+        prop.children [ props.content ]
+    ])
+
+let animationsOnHover content = animationsOnHover' {| content = React.fragment content |}
+
 
 let filterOptions options input =
   matchSortCountries input options |> List.toArray
 
 
-let AutocompletePage = FunctionComponent.Of((fun (model, dispatch) ->
+let DesignPage = FunctionComponent.Of((fun (model, dispatch) ->
   let c = useStyles ()
   Html.div [
     Mui.typography [
       typography.paragraph true
-      typography.children "Autocomplete control implemented using Material-UI's Autocomplete with autosuggest-highlight and match-sorter."
+      typography.children "Design control implemented using Material-UI's Design with autosuggest-highlight and match-sorter."
     ]
     Mui.typography [
       typography.paragraph true
@@ -140,7 +165,16 @@ let AutocompletePage = FunctionComponent.Of((fun (model, dispatch) ->
             Html.text (lastSelectedCountry model |> Option.map (fun c -> c.Name) |> Option.defaultValue "none")
           ]
         ]
+        Html.h1[
+           prop.children [ Html.strong "I am bold" ]
+           prop.style[style.backgroundColor.fuchsia]
+        ]
+        Html.div [
+          animationsOnHover [ Html.span "Hover me!" ]
+          animationsOnHover [ Html.p "So smooth" ]
+        ]
       ]
     ]
+
   ]
-), "AutocompletePage", memoEqualsButFunctions)
+), "DesignPage", memoEqualsButFunctions)

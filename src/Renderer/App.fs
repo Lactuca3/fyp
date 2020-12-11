@@ -13,8 +13,8 @@ open Fable.MaterialUI.MaterialDesignIcons
 
 type Page =
   | Home
-  | Autocomplete
-  | Badges
+  | Design
+  | Assembler
   | Dialogs
   | SaveLoad
   | Selects
@@ -22,14 +22,14 @@ type Page =
   | StaticAssets
   | TextFields
   static member All =
-    [ Home; Autocomplete; Badges; Dialogs; SaveLoad; Selects;
+    [ Home; Design; Assembler; Dialogs; SaveLoad; Selects;
       Snackbars; StaticAssets; TextFields ]
 
 let pageTitle = function
   | Home -> "Home"
-  | Autocomplete -> "Autocomplete"
-  | Badges -> "Badges"
-  | Dialogs -> "Dialogs"
+  | Design -> "Design Specification"
+  | Assembler -> "Assembler"
+  | Dialogs -> "Simulator"
   | SaveLoad -> "Save/load"
   | Selects -> "Selects"
   | StaticAssets -> "Static assets"
@@ -44,8 +44,8 @@ type Msg =
   | Navigate of Page
   | SetSystemThemeMode of ThemeMode
   | ToggleCustomThemeMode
-  | AutoCompleteMsg of Autocomplete.Msg
-  | BadgesMsg of Badges.Msg
+  | AutoCompleteMsg of Design.Msg
+  | AssemblerMsg of Assembler.Msg
   | DialogsMsg of Dialogs.Msg
   | SaveLoadMsg of SaveLoad.Msg
   | SelectsMsg of Selects.Msg
@@ -56,8 +56,8 @@ type Model =
   { Page: Page
     SystemThemeMode: ThemeMode
     CustomThemeMode: ThemeMode option
-    Autocomplete: Autocomplete.Model
-    Badges: Badges.Model
+    Design: Design.Model
+    Assembler: Assembler.Model
     Dialogs: Dialogs.Model
     SaveLoad: SaveLoad.Model
     Selects: Selects.Model
@@ -79,9 +79,9 @@ let update msg m =
             | Some Light -> None
       }, Cmd.none
   | AutoCompleteMsg msg' ->
-      { m with Autocomplete = Autocomplete.update msg' m.Autocomplete }, Cmd.none
-  | BadgesMsg msg' ->
-      { m with Badges = Badges.update msg' m.Badges }, Cmd.none
+      { m with Design = Design.update msg' m.Design }, Cmd.none
+  | AssemblerMsg msg' ->
+      { m with Assembler = Assembler.update msg' m.Assembler }, Cmd.none
   | DialogsMsg msg' ->
       { m with Dialogs = Dialogs.update msg' m.Dialogs }, Cmd.none
   | SaveLoadMsg msg' ->
@@ -164,9 +164,9 @@ let private pageListItem model dispatch page =
 
 let private pageView model dispatch =
   match model.Page with
-  | Home -> Mui.typography "This app contains simple demos showing how certain Material-UI components can be used with Elmish."
-  | Autocomplete -> Autocomplete.AutocompletePage(model.Autocomplete, AutoCompleteMsg >> dispatch)
-  | Badges -> Badges.BadgesPage(model.Badges, BadgesMsg >> dispatch)
+  | Home -> Mui.typography "This is a friendly CPU design application."
+  | Design -> Design.DesignPage(model.Design, AutoCompleteMsg >> dispatch)
+  | Assembler -> Assembler.AssemblerPage(model.Assembler, AssemblerMsg >> dispatch)
   | Dialogs -> Dialogs.DialogsPage(model.Dialogs, DialogsMsg >> dispatch)
   | SaveLoad -> SaveLoad.SaveLoadPage (model.SaveLoad, SaveLoadMsg >> dispatch)
   | Selects -> Selects.SelectsPage (model.Selects, SelectsMsg >> dispatch)
@@ -231,7 +231,7 @@ let private useRootViewStyles = Styles.makeStyles(fun styles theme ->
     root = styles.create (fun model -> [
       style.display.flex
       style.userSelect.none
-      if model.Page = Home then style.color Colors.green.``300``
+      if model.Page = Home then style.color Colors.pink.``300``
     ])
     appBar = styles.create [
       style.zIndex (theme.zIndex.drawer + 1)
@@ -318,8 +318,8 @@ let init () =
     { Page = Home
       SystemThemeMode = Light
       CustomThemeMode = None
-      Autocomplete = Autocomplete.init ()
-      Badges = Badges.init ()
+      Design = Design.init ()
+      Assembler = Assembler.init ()
       Dialogs = Dialogs.init ()
       SaveLoad = SaveLoad.init ()
       Selects = Selects.init ()

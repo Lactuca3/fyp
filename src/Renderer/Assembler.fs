@@ -1,4 +1,4 @@
-﻿module Badges
+﻿module Assembler
 
 open System
 open Elmish.React
@@ -41,7 +41,7 @@ let private useStyles = Styles.makeStyles(fun styles theme ->
   |}
 )
 
-let BadgesPage = FunctionComponent.Of((fun (model, dispatch) ->
+let AssemblerPage = FunctionComponent.Of((fun (model, dispatch) ->
   let c = useStyles ()
   Html.div [
     Mui.typography [
@@ -72,4 +72,4 @@ let BadgesPage = FunctionComponent.Of((fun (model, dispatch) ->
       iconButton.children [ plusIcon [] ]
     ]
   ]
-), "BadgesPage", memoEqualsButFunctions)
+), "AssemblerPage", memoEqualsButFunctions)
