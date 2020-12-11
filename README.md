@@ -1,42 +1,13 @@
-# Fable-Elmish-Electron-Material-UI demo [![Build status](https://ci.appveyor.com/api/projects/status/hm2w65e3enahp55g/branch/master?svg=true)](https://ci.appveyor.com/project/cmeeren/fable-elmish-electron-material-ui-demo/branch/master)
+# Final Year Project
 
-This is an example of an F# Electron app centered around Fable 2 and Elmish. The actual app contents (which you can easily replace to build your own Electron app) are intended to show how to use Material-UI (including JSS/style-as-code) as well as serve as examples of how to implement some (not always trivial) UX patterns in Elmish.
-
-To use the demo for scaffolding your own Fable/Elmish/Electron apps, simply clone the repo and start hackin' on the `Renderer` project to get started (details below).
-
-Features/stack:
-* Hot module reloading for both code and styles
-* Time-travel debugging (using Redux DevTools, RemoteDev, and Fable.Elmish.Debugger)
-* Single-command development and packaging with FAKE
-* [electron-webpack](https://webpack.electron.build/) takes care of most of the webpack config
-* [electron-builder](https://www.electron.build/) packages the app (see their documentation for how to customize)
-* [electron-window-state](https://github.com/mawie81/electron-window-state/) for remembering window state between launches
-* [Devtron](https://electronjs.org/devtron) for Electron-specific debugging/linting
-
-Stuff demoed:
-
-* Autocomplete
-* Badges
-* Dialogs
-* Saving/loading files
-* Selects (dropdowns)
-* Snackbars
-* Static assets (images etc.)
-* Text fields / input validation
-
-### Hot module reloading in action
-
-![Animation showing hot module reloading](readme-hmr.gif)
-
-### Time-travel debugging in action
-
-![Animation showing time-travel debugging](readme-ttd.gif)
+An F# Electron app centered around Fable 2 and Elmish designed to help Year 1 DECA students learn about CPU Design. Includes a CPU Instruction Set Architecture DSL, Assembler, and Simulator
 
 
 ## Requirements
 
 * .NET Core SDK 3.0
 * Node (for `npm`)
+* Python 2
 
 
 ## How to develop
